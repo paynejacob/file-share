@@ -1,0 +1,46 @@
+<html>
+<head>
+    <title>File Share</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #shareUrl {
+            border: #a6a6a6 solid;
+            background-color: #eaeaea;
+            padding: 30px;
+            border-radius: 5px;
+            user-select: all;
+            font-size: x-large;
+        }
+
+        #downloadButton {
+            display: block;
+            border-radius: 5px;
+            border-width: thin;
+            border-color: black;
+            border-style: solid;
+            text-decoration: none;
+            color: black;
+            text-align: center;
+            padding: 10px;
+            font-size: x-large;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <p id="shareUrl"></p>
+        <a id="downloadButton" target="_blank">DOWNLOAD</a>
+    </div>
+</body>
+<script type="application/javascript">
+    document.getElementById("shareUrl").innerText = window.location
+    document.getElementById("downloadButton").setAttribute("href", window.location + "?download")
+</script>
+</html>

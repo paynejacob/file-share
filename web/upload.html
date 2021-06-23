@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title>File Share</title>
+        <style>
+            input[type="file"] {
+                display: none;
+            }
+
+            .upload-btn {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100vw;
+                height: 100vh;
+                font-size: 10vw;
+                font-family: Impact,serif;
+                text-transform: capitalize;
+            }
+
+            body, form {
+                margin: 0;
+            }
+        </style>
+    </head>
+    <body>
+        <form method="post" enctype="multipart/form-data">
+            <label for="file" class="upload-btn">
+                <input type="file" id="file" name="file" onchange="form.submit()" />
+                <span>click to upload file</span>
+            </label>
+        </form>
+    </body>
+</html>
