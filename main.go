@@ -7,6 +7,7 @@ import (
 	"io"
 	"log"
 	"net/http"
+	"strings"
 	"sync"
 	"time"
 )
@@ -26,7 +27,7 @@ type FileShare struct {
 
 func (f *FileShare) writeFile(in io.Reader, size int64, contentType string) (key string, err error) {
 	t := time.NewTimer(f.fileTTL)
-	key = randstr.Hex(6)
+	key = strings.ToLower(randstr.Hex(3))
 
 	f.mu.Lock()
 	defer f.mu.Unlock()
