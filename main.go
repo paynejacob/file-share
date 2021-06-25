@@ -122,7 +122,7 @@ func main() {
 		mu:          sync.RWMutex{},
 		files:       make(map[string][]byte, 0),
 		contentType: make(map[string]string, 0),
-		fileTTL:     5 * time.Minute,
+		fileTTL:     15 * time.Minute,
 	}
 
 	r.Path("/{key}/").Methods("GET", "POST").HandlerFunc(fileShare.Download)
