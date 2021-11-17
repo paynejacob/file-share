@@ -22,7 +22,7 @@ jobs:
           REGISTRY: ghcr.io
           TAG_NAME: ${{ env.VERSION }}
           BUILDX: "true"
-      - uses: bsord/helm-push@patch-1
+      - uses: bsord/helm-push@v4
         with:
           registry-url: https://charts.jacobapayne.com
           username: ${{ secrets.HELM_USERNAME }}
