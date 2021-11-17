@@ -9,14 +9,15 @@ File Share is a dead simple application for moving files from one machine to ano
 File share can be run as a standalone docker container.
 
 ```shell
-docker run -p 80:80 paynejacob/file-share:latest
+docker run -p 80:80 ghcr.io/paynejacob/file-share:latest
 ```
 
 It can also be installed as a helm chart
 
 ```shell
-git clone https://github.com/file-share.git
-helm upgrade --install --create-namespace -n file-share file-share file-share/charts/file-share
+helm repo add paynejacob https://charts.jacobapayne.com
+helm repo update
+helm upgrade --install --create-namespace -n file-share file-share paynejacob/file-share
 ```
 
 ## Usage

@@ -1,4 +1,4 @@
-name: push image
+name: release
 
 on:
   push:
@@ -6,16 +6,27 @@ on:
       - v*
 
 jobs:
-  push-image:
-    name: push image
+  release:
+    name: release
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: docker/login-action@v1
+      - run: echo "VERSION=${GITHUB_REF##*/}" >> $GITHUB_ENV
+      - run: echo "CHART_VERSION=${VERSION/v/}" >> $GITHUB_ENV
+      - uses: opspresso/action-docker@master
         with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      - run: docker build -t $GITHUB_REPOSITORY:${GITHUB_REF##*/} .
-      - run: docker tag $GITHUB_REPOSITORY:${GITHUB_REF##*/} $GITHUB_REPOSITORY:latest
-      - run: docker push $GITHUB_REPOSITORY:${GITHUB_REF##*/}
-      - run: docker push $GITHUB_REPOSITORY:latest
+          args: --docker
+        env:
+          USERNAME: ${{ github.actor }}
+          PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+          REGISTRY: ghcr.io
+          TAG_NAME: ${{ env.VERSION }}
+          BUILDX: "true"
+      - uses: bsord/helm-push@patch-1
+        with:
+          registry-url: https://charts.jacobapayne.com
+          username: ${{ secrets.HELM_USERNAME }}
+          password: ${{ secrets.HELM_PASSWORD }}
+          chart-folder: charts/file-share
+          version: ${{ env.CHART_VERSION }}
+          appVersion: ${{ env.VERSION }}
